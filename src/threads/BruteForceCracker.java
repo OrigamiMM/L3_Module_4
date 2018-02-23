@@ -20,8 +20,13 @@ public class BruteForceCracker {
 		startTime = System.currentTimeMillis();
 		
 		int ctr = 0;
-		while(!checkCode(ctr++));
+		int number= 100000;
+		new Thread (()-> ctr++).start();
+		new Thread(()-> number++).start();
 		
+		
+		
+		while(!checkCode(ctr));
 		endTime = System.currentTimeMillis();
 		elapsedTime = (float)(endTime - startTime);
 		elapsedTime /= 1000.f;
