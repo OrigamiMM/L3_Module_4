@@ -6,37 +6,51 @@
 
 // Pro-tip: Do not include the creation of the threads as part of the time. 
 
+package threads;
+
 import java.util.Random;
 
 public class BruteForceCracker {
-	static long code = (long)(new Random().nextDouble() * 1_000_000_000);
-	
+	static long code = (long) (new Random().nextDouble() * 1_000_000_000);
+
 	static long startTime;
 	static long endTime;
 	static float elapsedTime;
-	
+
 	public static void main(String[] args) {
+		Thread one = new Thread(() -> crackCode(0, 1));
+		Thread two = new Thread(() -> crackCode(200000000, 2));
+		Thread three = new Thread(() -> crackCode(400000000, 3));
+		Thread four = new Thread(() -> crackCode(600000000, 4));
+		Thread five = new Thread(() -> crackCode(800000000, 5));
+		
 		System.out.println("Starting Brute Force Checker");
+		System.out.println(code);
 		startTime = System.currentTimeMillis();
 		
-		int ctr = 0;
-		int number= 100000;
-		new Thread (()-> ctr++).start();
-		new Thread(()-> number++).start();
-		
-		
-		
-		while(!checkCode(ctr));
-		endTime = System.currentTimeMillis();
-		elapsedTime = (float)(endTime - startTime);
-		elapsedTime /= 1000.f;
-		System.out.println("Total time taken: " + elapsedTime + " seconds");
+		one.start();
+		two.start();
+		three.start();
+		four.start();
+	five.start();
 	}
-	
-	public static boolean checkCode(long p){
-		if(p == code){
+
+	static void crackCode(int start, int num) {
+		while (!checkCode(start)) {
+			start++;
+		}
+	endTime = System.currentTimeMillis();
+	elapsedTime = (float) (endTime - startTime);
+	elapsedTime /= 1000.f;
+	System.out.println("Total time taken: " + elapsedTime + " seconds from codeCracker" + num);
+	System.out.println(start);
+			//System.out.println(start + " from " + num);
+		}
+
+	public static boolean checkCode(long p) {
+		if (p == code) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
